@@ -23,18 +23,56 @@ describe('Dashboard Landing page after Login', () => {
       cy.checkLogoRedirection();
     });
     // check sub-menu navigation of student from side-bar
-    it('should show and navigate all student menu items', () => {
-      const expectedUrls = ['/academic/dashboard', '/academic/subject?pageSize=25&current=1',
-        '/academic/timeline?pageSize=10000&current=1&filters[0][field]=name&filters[0][value]=&filters[0][operator]=eq',];
-      cy.get('[href="/academic"]').click();
-      cy.get('.MuiCollapse-wrapperInner > .minimal__nav__ul .MuiButtonBase-root')
-       .each(($el) => {
-        cy.wrap($el).invoke('attr', 'href').then((href) => {
-        expect(expectedUrls).to.include(href);  // Check href is expected
-            cy.wrap($el).click();
-            cy.url().should('include', href);
-        
-        });
-        });    
+    it('should show and navigate all student menu items including Settings submenu', () => {
+      const mainUrls = [
+        '/academic/dashboard',
+        '/academic/subject',
+        '/academic/timeline',
+      ];
+    
+      const settingSubUrls = [
+        '/academic/setting/batch',
+        '/academic/setting/program',
+        '/academic/setting/class',
+        '/academic/setting/class-subject',
+        '/academic/setting/section',
+        '/academic/setting/period',
+        '/academic/setting/room',
+        '/academic/setting/house',
+        '/academic/setting/hostel',
+        '/academic/setting/session',
+      ];
+    
+      // Open the Academic Menu
+      cy.get('[href="/academic"]').should('exist').and('be.visible').click();
+    
+      // Loop through main menu URLs
+      mainUrls.forEach((url) => {
+        cy.get(`a[href="${url}"]`).should('exist').and('be.visible').click();
+        cy.url().should('include', url);
+        cy.wait(300);
+        cy.get('[href="/academic"]').click(); // re-expand menu if needed
+      });
+    
+      // Click the "Settings" div
+      cy.contains('.minimal__nav__item__title', 'Settings')
+        .should('exist')
+        .and('be.visible')
+        .click();
+    
+      // Loop through submenu items
+      settingSubUrls.forEach((url) => {
+        cy.get(`a[href="${url}"]`)
+          .should('exist')
+          .and('be.visible')
+          .click();
+        cy.url().should('include', url);
+        cy.wait(300);
+    
+        // Re-open the menu after navigation
+        cy.get('[href="/academic"]').click();
+        cy.contains('.minimal__nav__item__title', 'Settings').click();
+      });
     });
+  
 });
