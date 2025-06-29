@@ -1,6 +1,5 @@
 describe('Dashboard Page', () => {
     beforeEach(() => {
-      cy.viewport(1920, 1080);
       cy.visit('https://app.acharyatech.com');
     });
     
@@ -22,7 +21,9 @@ describe('Dashboard Page', () => {
 
     it('Dashboard content must be visible', () => {
         //As this is in under constructions now. so i just checked if the content or particular div is exist and visible or not!!!
-        
+        cy.get('a[aria-label="Dashboard"][href="/dashboard"]')
+          .should('be.visible')
+          .click();
         // Check main layout container is visible
         cy.get('.minimal__layout__main').should('exist').and('be.visible');
   

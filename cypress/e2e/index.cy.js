@@ -1,6 +1,5 @@
 describe('Dashboard Landing page after Login', () => {
     beforeEach(() => {
-      cy.viewport(1920, 1080);
       cy.visit('https://app.acharyatech.com');
     });
   
