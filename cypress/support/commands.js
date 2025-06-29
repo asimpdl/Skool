@@ -23,20 +23,43 @@ Cypress.Commands.add('toggleSidebarAndCheck', () => {
 });
   
 Cypress.Commands.add('checkSidebarLinksNavigation', () => {
+  // cy.get('nav ul.minimal__nav__ul li.minimal__nav__li a[aria-label]')
+  //   .each(($link) => {
+  //     const label = $link.attr('aria-label');
+  //     const href = $link.attr('href');
+
+  //     // Click using text-based selector to avoid stale element reference
+  //     cy.get(`a[aria-label="${label}"]`).click();
+
+  //     // Confirm URL navigation
+  //     cy.url().should('include', href);
+
+  //     // Reset for the next iteration
+  //     cy.visit('https://app.acharyatech.com');
+  //   });
+  const expectedUrls = [
+    '/dashboard',
+    '/student',
+    '/academic',
+    '/employee',
+    '/billing',
+    '/account',
+    '/exam',
+    '/vehicle',
+    '/repo',
+    '/library',
+    '/inventory',
+    '/notice'
+  ];
   cy.get('nav ul.minimal__nav__ul li.minimal__nav__li a[aria-label]')
-    .each(($link) => {
-      const label = $link.attr('aria-label');
-      const href = $link.attr('href');
-
-      // Click using text-based selector to avoid stale element reference
-      cy.get(`a[aria-label="${label}"]`).click();
-
-      // Confirm URL navigation
-      cy.url().should('include', href);
-
-      // Reset for the next iteration
-      cy.visit('https://app.acharyatech.com');
+   .each(($el) => {
+    cy.wrap($el).invoke('attr', 'href').then((href) => {
+    expect(expectedUrls).to.include(href);  // Check href is expected
+        cy.wrap($el).click();
+        cy.url().should('include', href);
+    
     });
+    });    
 });
 
   

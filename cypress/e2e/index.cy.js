@@ -18,5 +18,4 @@ describe('Dashboard Landing page after Login', () => {
     it('Logo should redirect to home when clicked', () => {
       cy.checkLogoRedirection();
     });
-  });
-  
+  }); 

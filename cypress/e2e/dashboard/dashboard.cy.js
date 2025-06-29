@@ -33,4 +33,3 @@ describe('Dashboard Page', () => {
             .and('be.visible');
     });
   });
-  
