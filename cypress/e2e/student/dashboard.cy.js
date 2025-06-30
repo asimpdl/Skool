@@ -1,4 +1,4 @@
-describe('Dashboard Landing page after Login', () => {
+describe('Student Dashboard: Landing Page Behavior After Login', () => {
   beforeEach(() => {
     cy.visit('https://app.acharyatech.com/student');
   });
@@ -22,7 +22,12 @@ describe('Dashboard Landing page after Login', () => {
   it('Logo should redirect to home when clicked', () => {
     cy.checkLogoRedirection();
   });
-    
+});
+
+describe('Student Section: Menu Navigation and Submenu Verification', () => {
+  beforeEach(() => {
+    cy.visit('https://app.acharyatech.com/student');
+  });
 
   it('should show and navigate all student menu items including Settings and Certificate submenu', () => {
     const mainUrls = [
@@ -34,7 +39,7 @@ describe('Dashboard Landing page after Login', () => {
       '/student/certificate/issue',
       '/student/certificate/type'
     ];
-
+  
     const settingSubUrls = [
       '/student/setting/datavalue',
     ];
@@ -47,7 +52,7 @@ describe('Dashboard Landing page after Login', () => {
       cy.get(`a[href="${url}"]`).should('exist').and('be.visible').click();
       cy.url().should('include', url);
     });
-
+  
     // Click the "Programs" div
     cy.contains('.minimal__nav__item__texts', 'Programs')
       .should('exist')
@@ -66,7 +71,7 @@ describe('Dashboard Landing page after Login', () => {
       cy.get(`a[href="${url}"]`).should('exist').and('be.visible').click();
       cy.url().should('include', url);
     });
-
+  
     // Click the "Settings" div
     cy.contains('.minimal__nav__item__texts', 'Settings')
       .should('exist')

@@ -1,28 +1,35 @@
-describe('Dashboard Landing page after Login', () => {
+describe('Academic Dashboard: Landing Page Behavior After Login', () => {
+  beforeEach(() => {
+    cy.visit('https://app.acharyatech.com/academic');
+  });
+  
+  it('Sidebar should be visible after page load', () => {
+    cy.checkSidebarVisibility();
+  });
+  
+  it('Sidebar should minimize and expand properly', () => {
+    cy.toggleSidebarAndCheck();
+  });
+  
+  it('Sidebar links should navigate correctly', () => {
+    cy.checkSidebarLinksNavigation();
+  });
+  
+  it('Logo should redirect to home when clicked', () => {
+    cy.checkLogoRedirection();
+  });
+  
+  it('Logo should redirect to home when clicked', () => {
+    cy.checkLogoRedirection();
+  });
+  
+}); 
+
+describe('Student Section: Menu Navigation and Submenu Verification', () => {
     beforeEach(() => {
-      cy.visit('https://app.acharyatech.com/academic');
+      cy.visit('https://app.acharyatech.com/student');
     });
-  
-    it('Sidebar should be visible after page load', () => {
-      cy.checkSidebarVisibility();
-    });
-  
-    it('Sidebar should minimize and expand properly', () => {
-      cy.toggleSidebarAndCheck();
-    });
-  
-    it('Sidebar links should navigate correctly', () => {
-      cy.checkSidebarLinksNavigation();
-    });
-  
-    it('Logo should redirect to home when clicked', () => {
-      cy.checkLogoRedirection();
-    });
-  
-    it('Logo should redirect to home when clicked', () => {
-      cy.checkLogoRedirection();
-    });
-    // check sub-menu navigation of student from side-bar
+    // check sub-menu navigation of student from side-bar    
     it('should show and navigate all student menu items including Settings submenu', () => {
       const mainUrls = [
         '/academic/dashboard',
@@ -74,5 +81,4 @@ describe('Dashboard Landing page after Login', () => {
         cy.contains('.minimal__nav__item__title', 'Settings').click();
       });
     });
-  
 });
