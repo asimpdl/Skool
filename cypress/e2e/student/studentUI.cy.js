@@ -86,7 +86,7 @@
 //   });
 // });
 
-// describe('Dashboard: Main Layout Structure and Behavior', () => {
+// describe('Dashboard', () => {
 //     beforeEach(() => {
 //       cy.visit('https://app.acharyatech.com')
 //       // Navigate to dashboard
@@ -172,19 +172,26 @@
 //   });
 
 //   it('Programs visibility', () => {
-//     cy.get('.MuiBox-root .MuiGrid2-root .MuiCard-root .MuiStack-root').should('exist').and('be.visible')
-//     cy.get('svg[role="img"]').should('exist').and('be.visible');
-//     cy.get('p').should('exist').and('be.visible');
+//     cy.get('.MuiBreadcrumbs-ol').should('exist').and('be.visible')
+//     cy.get('.MuiCardHeader-root').should('exist').and('be.visible')
+//     .within(() => {
+//       cy.get('.MuiCardHeader-content > .MuiTypography-root').should('exist').and('be.visible')
+//       cy.get('form > .MuiBox-root').should('exist').and('be.visible')
+//         .within(() => {
+//           cy.get('.MuiInputBase-input').should('exist').and('be.visible')
+//           cy.get('.MuiButtonBase-root').should('exist').and('be.visible')
+//         });
+//     });
+//     //checks the program type data visibility
+//     cy.get('.MuiCardContent-root > .MuiBox-root').should('exist').and('be.visible')
+//       .within(() => {
+//         cy.get('svg[role="img"]').should('exist').and('be.visible')
+//         cy.get('p').should('exist').and('be.visible')
+//       });
 //   });
-
-//   // it('Programs visibility and redirection', () => {
-//   //   // Make sure all program cards are visible
-//   //   cy.get('.minimal__layout__main .MuiBox-root .MuiGrid2-root .MuiCard-root').should('exist').and('be.visible');
-//   //   //
-//   // });
 // });
 
-describe('Admission', () => {
+describe('Admission UI and its Functionality', () => {
   beforeEach(() => {
     cy.visit('https://app.acharyatech.com')
     // Navigate to program
@@ -192,11 +199,23 @@ describe('Admission', () => {
     cy.get('a[href="/student/admission"]').click()
   });
 
-  // it('Admission UI Visibility', () => {
-  //   cy.get('.MuiBox-root .MuiGrid2-root .MuiCard-root .MuiStack-root').should('exist').and('be.visible')
-  //   cy.get('svg[role="img"]').should('exist').and('be.visible');
-  //   cy.get('p').should('exist').and('be.visible');
-  // });
-});
-  
+  it('Admission visibility', () => {
+    cy.get('.MuiBreadcrumbs-ol').should('exist').and('be.visible').contains('Admission')
+    cy.get('.MuiCardHeader-root').should('exist').and('be.visible')
+    .within(() => {
+      cy.get('.MuiCardHeader-content > .MuiTypography-root').should('exist').and('be.visible').contains('Admissions')
+      cy.get('form > .MuiBox-root').should('exist').and('be.visible')
+      .within(() => {
+        cy.get('.MuiInputBase-input').should('exist').and('be.visible')
+        cy.get('.MuiButtonBase-root').should('exist').and('be.visible')
+      });
+      cy.get('.MuiButton-containedSecondary').should('exist').and('be.visible').contains('Import')
+      cy.get('.MuiButton-containedInherit').should('exist').and('be.visible').contains('New admission')
+    });
+    cy.get('.MuiCardContent-root').should('exist').and('be.visible')
+  });
 
+  it('Admision Details Import', () => {
+    //
+  });
+});
